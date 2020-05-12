@@ -1,0 +1,26 @@
+FROM ros:kinetic-ros-base-xenial
+
+RUN apt-key del 421C365BD9FF1F717815A3895523BAEEB01FA116
+RUN apt-key adv --keyserver 'hkp://keyserver.ubuntu.com:80' --recv-key C1CF6E31E6BADE8868B172B4F42ED6FBAB17C654
+RUN apt-get -y update && apt-get -y upgrade && apt-get -y dist-upgrade
+
+RUN apt-get install -y --allow-unauthenticated tmux vim wget git cmake unzip build-essential apt-utils pkg-config autoconf libatlas-base-dev gfortran libparmetis-dev python-wstool python-catkin-tools libssl-dev libusb-1.0-0-dev pkg-config libgtk-3-dev libglfw3-dev libgl1-mesa-dev libglu1-mesa-dev libboost-all-dev libjpeg-dev libpng-dev libtiff-dev libtbb-dev software-properties-common 
+
+RUN apt-get -y update && apt-get install -y --allow-unauthenticated libvtk5-dev libgtk2.0-dev
+
+# Install Librealsense
+RUN git clone https://github.com/IntelRealSense/librealsense.git
+WORKDIR /librealsense
+RUN add-apt-repository ppa:ubuntu-toolchain-r/test && apt-get update
+RUN apt-get -y install gcc-5 g++-5
+RUN update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-5 60 --slave /usr/bin/g++ g++ /usr/bin/g++-5
+RUN update-alternatives --set gcc "/usr/bin/gcc-5"
+RUN mkdir build
+RUN cd build
+WORKDIR /librealsense/build
+RUN cmake ../ -DCMAKE_BUILD_TYPE=Release -DBUILD_EXAMPLES=true
+RUN make uninstall && make clean && make && make install
+
+# Install Kimera for ROS
+RUN apt-get install -y --allow-unauthenticated ros-kinetic-realsense2-camera ros-kinetic-image-geometry ros-kinetic-pcl-ros ros-kinetic-cv-bridge ros-kinetic-image-proc ros-kinetic-usb-cam ros-kinetic-image-view ros-kinetic-rqt-multiplot ros-kinetic-rviz ros-kinetic-tf-conversions libgoogle-glog-dev libgflags-dev protobuf-compiler autoconf ros-kinetic-eigen-conversions apt-get install ros-kinetic-depth-image-proc
+
