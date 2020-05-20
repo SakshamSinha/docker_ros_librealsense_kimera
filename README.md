@@ -7,14 +7,10 @@ Docker repo for details on how to use docker image hosted on docker hub
 ```
 This will run the container with the GUI support as well as mount necessary drivers to mount Realsense D435i and T265 cameras in docker image.
 
-You will by default from the build directory of librealsense. We can jump to root directory by simply typing-
-```
-root@hostname:/librealsense/build# cd /
-```
 
 * We need four terminals to run the demo. So we will be using tmux. We could have gone through the docker exec route but that will require to source ros in all the terminals. Tmux is much better for me.
 ```buildoutcfg
-    root@hostname:/# tmux
+    root@hostname:/catkin_ws/src# tmux
 ```
 This will open tmux on the terminal. At this point expand your terminal window to full screen to properly see the window.
 Since tmux is set up with *default key bindings*, to split the windows we will be pressing following keys at a time-
