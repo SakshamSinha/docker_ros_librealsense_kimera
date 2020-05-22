@@ -21,6 +21,6 @@ WORKDIR /librealsense/build
 RUN cmake ../ -DCMAKE_BUILD_TYPE=Release -DBUILD_EXAMPLES=true
 RUN make uninstall && make clean && make && make install
 
-# Install Kimera for ROS
+# Install ROS dependencies
 RUN apt-get install -y --allow-unauthenticated ros-kinetic-realsense2-camera ros-kinetic-image-geometry ros-kinetic-pcl-ros ros-kinetic-cv-bridge ros-kinetic-image-proc ros-kinetic-usb-cam ros-kinetic-image-view ros-kinetic-rqt-multiplot ros-kinetic-rviz ros-kinetic-tf-conversions libgoogle-glog-dev libgflags-dev protobuf-compiler autoconf ros-kinetic-eigen-conversions apt-get install ros-kinetic-depth-image-proc
 
